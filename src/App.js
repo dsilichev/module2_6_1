@@ -1,6 +1,6 @@
 import styles from './app.module.css';
 import { Header, UserBlock} from './components'
-import { AppContext } from './context';
+import { AppContextProvider } from './app-context-provider';
 
 const getUserFromServer = () => ({
   id: '1',
@@ -14,13 +14,13 @@ function App() {
   const userData = getUserFromServer();
 
   return (
-    <AppContext.Provider value={userData}>
+    <AppContextProvider userValue={userData}>
     <div className={styles.app}>
       <Header />
       <hr/>
       <UserBlock />
     </div>
-    </AppContext.Provider>
+    </AppContextProvider>
   );
 }
 

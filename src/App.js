@@ -1,7 +1,8 @@
 import styles from './app.module.css';
 import { Header, UserBlock } from './components'
 import { AppContextProvider } from './app-context-provider';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
+import { AppContext } from './context';
 
 const getUserFromServer = () => ({
   id: '1',
@@ -19,30 +20,55 @@ const getAnotherUserFromServer = () => ({
   phone: '+7000000000'
 });
 
+const reducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case 'SET_USER_DATA': {
+      return payload;
+    }
+    case 'SET_USER_AGE': {
+      return ({
+        ...state,
+        age: payload
+      })
+    }
+    default: return state;
+  }
+};
+
 function App() {
-  const [userData, setUserData] = useState({});
+  const [userData, dispatch] = useReducer(reducer, {});
+
+
+
+  // const dispatch = (action) => {
+  //   const newState = reducer(userData, action);
+
+  //   setUserData(newState);
+  // }
 
   useEffect(() => {
     const userData = getUserFromServer();
 
-    setUserData(userData);
+    dispatch({type: 'SET_USER_DATA', payload: userData});
   },[])
   
   const changeUser = () => {
     const newUserData = getAnotherUserFromServer();
 
-    setUserData(newUserData);
+    dispatch({type: 'SET_USER_DATA', payload: newUserData});
   }
 
   return (
-    <AppContextProvider userValue={userData}>
+    <AppContext.Provider value={{userData, dispatch}}>
       <div className={styles.app}>
         <Header />
         <hr />
         <UserBlock />
         <button onClick={changeUser}>Сменить пользователя</button>
       </div>
-    </AppContextProvider>
+    </AppContext.Provider>
   );
 }
 

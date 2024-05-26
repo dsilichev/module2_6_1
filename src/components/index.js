@@ -1,5 +1,3 @@
-export * from './currentUser';
-export * from './header';
-export * from './userBlock';
-export * from './userPersonalInfo';
-export * from './userContacts';
+export * from './control-panel/control-panel';
+export * from './user/user';
+

@@ -1,18 +1,33 @@
-export const initialState = {};
+export const initialState = {
+  user: {
+    name: 'Vasya',
+    age: 25,
+  },
+  products: [],
+};
 
-export const appReducer = (state = initialState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case 'SET_USER_DATA': {
-      return payload;
-    }
-    case 'SET_USER_AGE': {
-      return ({
+export const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    // cases
+    case 'INCREASE_AGE': {
+      return {
         ...state,
-        age: payload
-      })
+        user: {
+          ...state.user,
+          age: state.user.age + action.payload,
+        }
+      }
     }
-    default: return state;
+    case 'RESET_AGE': {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          age: initialState.user.age,
+        }
+      }
+    }
+    default:
+      return state;
   }
 };

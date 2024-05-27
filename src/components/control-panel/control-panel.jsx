@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { RESET_AGE, increaseAge } from '../../actions';
+import { RESET_AGE, increaseAge, changeUserAsync } from '../../actions';
 
 export const ControlPanel = () => {
   const dispatch = useDispatch();
@@ -12,10 +12,15 @@ export const ControlPanel = () => {
     dispatch(RESET_AGE);
   }
 
+  const onUserChange = () => {
+    dispatch(changeUserAsync);
+  }
+
   return (
     <div>
       <button onClick={onAgeIncrease}>Increase age</button>
       <button onClick={onAgeReset}>Reset age</button>
+      <button onClick={onUserChange}>Change user</button>
     </div>
   )
 }

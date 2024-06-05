@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { RESET_AGE, increaseAge, changeUserAsync } from '../../actions';
 
-export const ControlPanel = () => {
-  const dispatch = useDispatch();
+export const ControlPanelContainer = ({ dispatch }) => {
+  // const dispatch = useDispatch();
 
   const onAgeIncrease = () => {
     dispatch(increaseAge(3));
@@ -24,3 +24,5 @@ export const ControlPanel = () => {
     </div>
   )
 }
+
+export const ControlPanel = connect()(ControlPanelContainer);

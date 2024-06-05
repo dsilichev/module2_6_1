@@ -1,6 +1,28 @@
 import { Component, useEffect, useState } from 'react';
 import styles from './app.module.css';
 
+export const HelloMessage = ({ user }) => {
+  return <span>Привет, {user}</span>;
+};
+
+export const GoodByeMessage = ({ user }) => {
+  return <span>До свидания, {user}</span>;
+};
+
+// Render Props
+export const UserWidget = ( { render }) => {
+  const user = 'Vasya';
+  return (
+    <div>
+      <div>Текущий пользователь: {user}</div>
+      <div>Сообщение:</div>
+      {render(user)}
+      {/* <HelloMessage user={user} />
+      <GoodByeMessage user={user} /> */}
+    </div>
+  );
+};
+
 function App({ message }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -16,6 +38,8 @@ function App({ message }) {
 
   return (
     <div className={styles.app}>
+      <UserWidget render={(user) => <HelloMessage user={user}/>} />
+      <UserWidget render={(user) => <GoodByeMessage user={user}/>} />
       <div>
         {message}: {screenWidth}
       </div>
@@ -40,8 +64,8 @@ export class OldApp extends Component {
   }
 
   updateScreenWidth = () => {
-    this.setState({ screenWidth: window.innerWidth});
-  }
+    this.setState({ screenWidth: window.innerWidth });
+  };
 
   componentDidMount() {
     console.log(this.props.message);
@@ -56,8 +80,8 @@ export class OldApp extends Component {
   render() {
     return (
       <div className={styles.app}>
-        {this.props.message}: {this.state.screenWidth} 
+        {this.props.message}: {this.state.screenWidth}
       </div>
-    )
+    );
   }
 }

@@ -7,9 +7,11 @@ function App() {
 
   return (
 
-    <div className={styles.app}>
-      <User/>
-      <ControlPanel/>
+    <div className="text-center">
+      <div className='text-red-600 text-3xl mt-10'>Content</div>
+      <div className='circle-red'></div>
+      {/* <User/>
+      <ControlPanel/> */}
     </div>
 
   );
